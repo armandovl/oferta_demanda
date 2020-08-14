@@ -1,0 +1,350 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <style type="text/css">
+      *{margin:0px;padding:0px;}
+      body {}
+      .claseBoton{margin: 0.5em 0em 0.5em 0.3em; padding:5px; font-size: 15px;}
+      div#visualization{width: 660px; height: 560px;float:left; }
+      div#botones{width: 440px;float:left; }
+    </style>
+
+    <script type="text/javascript">
+
+google.charts.load('current', {'packages':['corechart', 'controls']});
+
+google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+  // Some raw data (not necessarily accurate)
+    var curvaNormal =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    
+    //esta es la curva Azul
+    [0,null,null,8.6],//este cero es para la intersección  
+   
+    [1, 19.20,null,8.6],
+    [2, 14.82,null,8.6],
+    [3, 11.28,null,8.6],
+    [4, 8.6,null,8.6],
+    [5, 6.76,null,null],
+    [6, 5.77,null,null],
+    [7, 5.64,null,null],
+
+    //esta es la curva Roja
+    [0,null,null,8.6],//este cero es para la intersección
+    
+    [1, null,5.64,8.6],
+    [2, null,5.77,8.6],
+    [3, null,6.7,8.6],
+    [4, null,8.6,8.6],
+    [5, null,11.3,null],
+    [6, null,14.82,null],
+    [7, null,19.20,null],
+
+
+    ];
+    
+    var aumentoOferta =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    
+    //esta es la curva Azul
+    [0,null,null,8.6],//este cero es para la intersección  
+   
+    [1, 19.20,null,8.6],
+    [2, 14.82,null,8.6],
+    [3, 11.28,null,8.6],
+    [4, 8.6,null,8.6],
+    [5, 6.76,null,null],
+    [6, 5.77,null,null],
+    [7, 5.64,null,null],
+
+    //esta es la curva Roja
+    [0,null,null,6.76],//este cero es para la intersección
+    
+    [1.2, null,1.04,6.76],
+    [2.2, null,1.17,6.76],
+    [3.3, null,2.1,6.76],
+    [4.1, null,4,6.76],
+    [5, null,6.76,6.76],
+    [6.2, null,10.22,null],
+    [7.2, null,14.60,null],
+
+
+    ];
+
+
+
+    var disminucionOferta =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    
+    //esta es la curva Azul
+    [0,null,null,11.28],//este cero es para la intersección  
+   
+    [1, 19.20,null,11.28],
+    [2, 14.82,null,11.28],
+    [3, 11.28,null,11.28],
+    [4, 8.6,null,null],
+    [5, 6.76,null,null],
+    [6, 5.77,null,null],
+    [7, 5.64,null,null],
+
+    //esta es la curva Roja
+    [0,null,null,8.6],//este cero es para la intersección
+    
+    [0.7, null,10.14,8.6],
+    [1.6, null,10.27,8.6],
+    [3, null,11.2,8.6],
+    [4, null,13.1,8.6],
+    [4.7, null,15.8,null],
+    [5.2, null,20,null],
+    [5.3, null,23.7,null],
+
+
+    ];
+
+    var aumentaCantidadVar =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    
+    //esta es la curva Azul
+    [0,null,null,8.6],//este cero es para la intersección  
+   
+    [1, 19.20,null,8.6],
+    [2, 14.82,null,8.6],
+    [3, 11.28,null,8.6],
+    [4, 8.6,null,8.6],
+    [5, 6.76,null,null],
+    [6, 5.77,null,null],
+    [7, 5.64,null,null],
+
+    //esta es la curva Roja
+    [0,null,null,14.82],//este cero es para la intersección
+    
+    [1, null,5.64,14.82],
+    [2, null,5.77,14.82],
+    [3, null,6.7,14.82],
+    [4, null,8.6,14.82],
+    [5, null,11.3,14.82],
+    [6, null,14.82,14.82],
+    [7, null,19.20,null],
+
+
+    ];
+
+    var disminuyeCantidadVar =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    
+    //esta es la curva Azul
+    [0,null,null,8.6],//este cero es para la intersección  
+   
+    [1, 19.20,null,8.6],
+    [2, 14.82,null,8.6],
+    [3, 11.28,null,8.6],
+    [4, 8.6,null,8.6],
+    [5, 6.76,null,null],
+    [6, 5.77,null,null],
+    [7, 5.64,null,null],
+
+    //esta es la curva Roja
+    [0,null,null,5.77],//este cero es para la intersección
+    
+    [1, null,5.64,5.77],
+    [2, null,5.77,5.77],
+    [3, null,6.7,null],
+    [4, null,8.6,null],
+    [5, null,11.3,null],
+    [6, null,14.82,null],
+    [7, null,19.20,null],
+
+
+    ];
+
+    // Create and populate the data tables.
+    var data = [];
+    data[0] = google.visualization.arrayToDataTable(curvaNormal);
+    data[1] = google.visualization.arrayToDataTable(aumentoOferta);
+    data[2] = google.visualization.arrayToDataTable(disminucionOferta);
+    data[3] = google.visualization.arrayToDataTable(aumentaCantidadVar);
+    data[4] = google.visualization.arrayToDataTable(disminuyeCantidadVar);
+
+
+        var options = {
+          title : 'Ley de la oferta y modificadores de la curva',
+          vAxis: {title: 'Precio (P)',minValue: 0, maxValue: 25},
+          hAxis: {title: 'Cantidad Ofertada (Q)',minValue: 0, maxValue: 10},
+          animation:{duration: 1000},
+          width: 650,
+          height: 560,
+          seriesType: 'scatter',
+          series: {
+            0: { pointShape: 'circle', pointSize:15,type:'line'},
+            1: { pointShape: 'triangle', pointSize:10, type:'line' },
+            2: { pointShape: 'dat', pointSize:1,type:'area'},
+          },
+
+        };
+
+    // Create and draw the visualization.
+    var chart = new google.visualization.ComboChart(document.getElementById('visualization'));
+
+  
+  var graph=0;
+
+
+        desplazaDerecha = function() {
+          var graph=1;
+          chart.draw(data[graph], options);
+        };
+
+
+        pasaNormal = function() {
+          var graph=0;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+        desplazaIzquierda = function() {
+          var graph=2;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+        aumentaCantidad = function() {
+          var graph=3;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+        disminuyeCantidad = function() {
+          var graph=4;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+   chart.draw(data[graph], options);
+}
+    </script>
+  </head>
+  <body>
+    <div id="contenedorGeneral">
+          <br>
+          <center>
+          <h2 style="padding: 5px;">Somos caprinocultores, los mejores de la región, producimos queso de cabra</h2>
+          </center>
+      <div id="visualization">
+      </div>
+
+
+      <div id="botones">
+        <center><br><h3>Modificación de la Cantidad Ofertada</h3></center>
+          <div id="septimoAtributo">
+              <button class="claseBoton" onclick="disminuyeCantidad();"
+              title="Si disminuye el precio del queso, la cantidad ofrecida de queso baja, 'ceteris paribus' "
+              >
+                Disminuye el precio de mi producto
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();" title="Se espera que mi libro electrónico baje de precio">
+                Precio se mantiene normal
+              </button>              
+              <button class="claseBoton" onclick="aumentaCantidad();" 
+              title="Si aumenta el precio del queso, la cantidad ofrecida de queso sube, 'ceteris paribus' ">
+                Aumenta el precio de mi producto
+              </button>
+          </div>
+
+
+
+        <center><br><h3>Modificadores de la Curva de la Oferta</h3></center>
+
+          <div id="primerAtributo">
+              <button class="claseBoton" onclick="desplazaDerecha();" title="El precio de la barbacoa de borrego disminuye">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Precio Actividades Compiten Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="El precio de la barbacoa de borrego aumentó por las fiestas">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="segundoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="El precio del cabrito disminuye y éste nos está generando costos de alimentación">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Precio Act. Producen Juntas Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="El cabrito es muy cotizado en epocas turísticas y el precio sube">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="tercerAtributo">
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Otros productores de la región están vendiendo su leche de cabra a precio casi regalado">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Precios de los Insumos Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Se agotó el cuajo en la región y se tienen que importar cultivos más caros de E.U.">
+                Aumenta
+              </button>
+          </div>
+
+
+          <div id="cuartoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Malas practicas de ordeño han provocado una epidemía de mastitis, disminuye la producción de leche">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Mejoras Tecnológicas Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Empezamos a implementar dietas para aumentar los solidos totales en la leche y así producir más queso con los mismos litros de leche">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="quintoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Una fuerte sequía ha azotado la región, la producción de praderas y pastizales disminuyó">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Cambios Ambientales Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Un cambio meteorológico aumentó la duración de los días con fotoperiodo corto, aumentado así la fertilidad de nuestro ganado caprino">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="sextoAtributo">
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Se espera que el precio del queso baje por la temporada">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Expectativas de Precios Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Se viene la 'feria del queso y el vino', la cual atraerá turistas que pagarán más">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="septimoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="En la Cuidad solo existen 5 tiendas que venden queso gourmet artesanal de cabra">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Número de Oferentes Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="En la región de Pueblotepec abundan los caprinocultores, se vende queso de cabra en cada esquina">
+                Aumenta
+              </button>
+          </div>
+
+      </div><!--aqui terminan los botones-->
+                  <br><center><p>CIESTAAM<br>Valdés Armando<br>2015 </p></center>
+    </div><!--aqui termina el contenedor general-->
+  </body>
+</html>

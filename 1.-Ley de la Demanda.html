@@ -1,0 +1,338 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <style type="text/css">
+      *{margin:0px;padding:0px;}
+      body {}
+      .claseBoton{margin: 0.5em 0em 0.5em 0.3em; padding:5px; font-size: 15px;}
+      div#visualization{width: 660px; height: 560px;float:left; }
+      div#botones{width: 440px;float:left; }
+    </style>
+
+    <script type="text/javascript">
+
+google.charts.load('current', {'packages':['corechart', 'controls']});
+
+google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+  // Some raw data (not necessarily accurate)
+    var curvaNormal =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    
+    [0,null,null,8.6],//este cero es para la intersección  
+   
+    //[1, 19.20,5.64,null],
+    [2, 14.82,null,8.6],
+    [3, 11.28,null,8.6],
+    [4, 8.6,null,8.6],
+    [5, 6.76,null,null],
+    [6, 5.77,null,null],
+    [7, 5.64,null,null],
+
+    [0,null,null,8.6],//este cero es para la intersección
+    
+    [1, null,5.64,8.6],
+    [2, null,5.77,8.6],
+    [3, null,6.7,8.6],
+    [4, null,8.6,8.6],
+    [5, null,11.3,null],
+    [6, null,14.82,null],
+    [7, null,19.20,null],
+
+
+    ];
+    
+    var aumentoDemanda = [
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],    
+
+    [0,null,null,11.3],//este cero es para la intersección  
+    [3, 20,null,11.3],
+    [3.9, 15.1,null,11.3],
+    [5, 11.3,null,11.3],  
+    [6.2, 9.51,null,null],
+    [7.2, 8.48,null,null],
+    [8, 8,null,null],
+
+    [0,null,null,8.6],//este cero es para la intersección 
+    [1, null,5.64,8.6],
+    [2, null,5.77,8.6],
+    [3, null,6.7,8.6],
+    [4, null,8.6,8.6],
+    [5, null,11.3,null],
+    [6, null,14.82,null],
+    [7, null,19.20,null],
+
+
+    ];
+
+
+
+    var disminucionDemanda = [
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],    
+
+    [0,null,null,6.7],//este cero es para la intersección  
+   
+    //[1, 27.15,5.64,null],
+    [1, 13.6,null,6.7],
+    [2, 10,null,6.7],
+    [3, 6.7,null,6.7],
+    [4, 4.3,null,null],
+    [5, 3.1,null,null],
+    [6, 2.5,null,null],
+
+    [0,null,null,8.6],//este cero es para la intersección
+    
+    [1, null,5.64,8.6],
+    [2, null,5.77,8.6],
+    [3, null,6.7,8.6],
+    [4, null,8.6,8.6],
+    [5, null,11.3,null],
+    [6, null,14.82,null],
+    [7, null,19.20,null],
+    ];
+
+    var aumentaCantidadVar =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    //este es el azul
+    [0,null,null,5.77],//este cero es para la intersección  
+   
+    //[1, 19.20,5.64,null],
+    [2, 14.82,null,5.77],
+    [3, 11.28,null,5.77],
+    [4, 8.6,null,5.77],
+    [5, 6.76,null,5.77],
+    [6, 5.77,null,5.77],
+    [7, 5.64,null,null],
+
+    //este es el rojo
+    [0,null,null,8.6],//este cero es para la intersección
+    
+    [1, null,5.64,8.6],
+    [2, null,5.77,8.6],
+    [3, null,6.7,8.6],
+    [4, null,8.6,8.6],
+    [5, null,11.3,null],
+    [6, null,14.82,null],
+    [7, null,19.20,null],
+
+
+    ];
+
+    var disminuyeCantidadVar =[
+    ['Precio', 'Demanda','Oferta','Equilibrio de mercado'],
+    
+    //este es el azul  
+    [0,null,null,8.6],//este cero es para la intersección  
+   
+    //[1, 19.20,5.64,null],
+    [2, 14.82,null,8.6],
+    [3, 11.28,null,8.6],
+    [4, 8.6,null,8.6],
+    [5, 6.76,null,null],
+    [6, 5.77,null,null],
+    [7, 5.64,null,null],
+
+ //este es el rojo
+    [0,null,null,14.82],//este cero es para la intersección
+    
+    [1, null,5.64,14.82],
+    [2, null,5.77,14.82],
+    [3, null,6.7,null],
+    [4, null,8.6,null],
+    [5, null,11.3,null],
+    [6, null,14.82,null],
+    [7, null,19.20,null],
+
+
+    ];
+
+    // Create and populate the data tables.
+    var data = [];
+    data[0] = google.visualization.arrayToDataTable(curvaNormal);
+    data[1] = google.visualization.arrayToDataTable(aumentoDemanda);
+    data[2] = google.visualization.arrayToDataTable(disminucionDemanda);
+    data[3] = google.visualization.arrayToDataTable(aumentaCantidadVar);
+    data[4] = google.visualization.arrayToDataTable(disminuyeCantidadVar);
+
+
+        var options = {
+          title : 'Ley de la demanda y modificadores de la curva',
+          vAxis: {title: 'Precio (P)',minValue: 0, maxValue: 25},
+          hAxis: {title: 'Cantidad Demandada (Q)',minValue: 0, maxValue: 10},
+          animation:{duration: 1000},
+          width: 650,
+          height: 560,
+          seriesType: 'scatter',
+          series: {
+            0: { pointShape: 'circle', pointSize:15,type:'line'},
+            1: { pointShape: 'triangle', pointSize:10, type:'line' },
+            2: { pointShape: 'dat', pointSize:1,type:'area'},
+          },
+
+        };
+
+    // Create and draw the visualization.
+    var chart = new google.visualization.ComboChart(document.getElementById('visualization'));
+
+  
+  var graph=0;
+
+
+        desplazaDerecha = function() {
+          var graph=1;
+          chart.draw(data[graph], options);
+        };
+
+
+        pasaNormal = function() {
+          var graph=0;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+        desplazaIzquierda = function() {
+          var graph=2;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+        aumentaCantidad = function() {
+          var graph=3;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+        disminuyeCantidad = function() {
+          var graph=4;
+          options.animation={duration: 1000};
+          chart.draw(data[graph], options); 
+        };
+
+   chart.draw(data[graph], options);
+}
+    </script>
+  </head>
+  <body>
+    <div id="contenedorGeneral">
+          <br>
+          <center>
+          <h2 style="padding: 5px;">Acabas de escribir un libro de microeconomía y lo vas a vender como libro electrónico</h2>
+          </center>
+      <div id="visualization">
+      </div>
+
+
+      <div id="botones">
+        <center><br><h3>Modificación de la Cantidad Demandada</h3></center>
+          <div id="septimoAtributo">
+              <button class="claseBoton" onclick="aumentaCantidad();"
+              title="Si disminuyes el precio de tu libro, la cantidad demandada del mismo aumentará, 'ceteris paribus' "
+              >
+                Disminuye el precio de mi producto
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Precio se mantiene normal
+              </button>              
+              <button class="claseBoton" onclick="disminuyeCantidad();" 
+              title="Si aumentas el precio de tu libro, la cantidad demandada del mismo disminuira, 'ceteris paribus'">
+                Aumenta el precio de mi producto
+              </button>
+          </div>
+
+
+
+        <center><br><h3>Modificadores de la Curva de la Demanda</h3></center>
+
+          <div id="primerAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Otros libros de microeconomía parecidos al tuyo se abarataron">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Precio Sustitutos Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="El precio de otros libros de microeconomía parecidos al tuyo aumentó">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="segundoAtributo">
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Precio del lector de libros electrónicos (kindle) disminuyó">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Precio Complementarios Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Precio del lector de libros electrónicos (kindle) aumentó">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="tercerAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Se acerca el 'buen fin' y se espera que el precio de tu libro tenga una rebaja">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Cambio Precios Futuros Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Por estreno el libro tendra rebaja sólo esta semana, después tendrá un precio más alto">
+                Aumenta
+              </button>
+          </div>
+
+
+          <div id="cuartoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="A los estudiantes de posgrado les disminuyeron la beca, optan por comprar alimento en lugar de libros">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Cambio en los Ingresos Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="A los estudiantes de posgrado les aumentaron la beca, por lo tanto tienen más dinero para comprar libros">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="quintoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="En un programa de tv clasifican a tu libro dentro de los peores libros de la materia">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Gustos y Preferencias Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Un autor reconocido menciona que tu libro es el mejor libro de microeconomía que ha leido">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="sextoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Se espera que haya recorte de personal y disminución de sueldo, menos gente comprara tu libro">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Expectativas de Ingresos Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Se espera que aumente el sueldo de los trabajadores en varias empresas de la zona">
+                Aumenta
+              </button>
+          </div>
+
+          <div id="septimoAtributo">
+              <button class="claseBoton" onclick="desplazaIzquierda();" title="Por el lenguaje que se maneja en tu libro, sólo es recomendado para especialistas en la materia">
+                Disminuye
+              </button>
+              <button class="claseBoton" onclick="pasaNormal();">
+                Tamaño de la Población Normal
+              </button>
+              <button class="claseBoton" onclick="desplazaDerecha();" title="Tu libro pasa del portal de la UACh a venderse en Amazon.com">
+                Aumenta
+              </button>
+          </div>
+
+      </div><!--aqui terminan los botones-->
+                  <br><center><p>CIESTAAM<br>Valdés Armando<br>2015</p></center>
+    </div><!--aqui termina el contenedor general-->
+  </body>
+</html>
